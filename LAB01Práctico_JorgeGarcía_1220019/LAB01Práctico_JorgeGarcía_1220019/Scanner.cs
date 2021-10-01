@@ -29,7 +29,6 @@ namespace LAB01Práctico_JorgeGarcía_1220019
                 switch (_state)
                 {
                     case 0:
-
                         // Whitespace removal
                         while (char.IsWhiteSpace(peek))
                         {

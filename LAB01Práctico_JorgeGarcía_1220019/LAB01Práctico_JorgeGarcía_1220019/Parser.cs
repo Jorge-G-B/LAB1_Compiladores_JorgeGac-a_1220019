@@ -10,8 +10,14 @@ namespace LAB01Práctico_JorgeGarcía_1220019
     {
         Token ttoken;
         float tnum;
+        string tstring;
         Scanner _scanner;
         Token _token;
+
+        private float S()
+        {
+            return A();
+        }
 
         private float A()
         {
@@ -21,10 +27,10 @@ namespace LAB01Práctico_JorgeGarcía_1220019
                 case TokenType.LParen:
                 case TokenType.Symbol:
                     return B() + AP();
-                    break;
+                    
                 default:
                     return 0;
-                    break;
+                  
             }
         }
 
@@ -86,6 +92,7 @@ namespace LAB01Práctico_JorgeGarcía_1220019
             switch (_token.Tag)
             {
                 case TokenType.Minus:
+                    Match(_token.Tag);
                     return -C();
                 case TokenType.LParen:
                 case TokenType.Symbol:
@@ -110,7 +117,8 @@ namespace LAB01Práctico_JorgeGarcía_1220019
                 case TokenType.Symbol:
                     ttoken = _token;
                     Match(_token.Tag);
-                    return float.Parse(Convert.ToString(ttoken)+Convert.ToString(DP()));
+                    tstring = Convert.ToString(ttoken.Value) + Convert.ToString(DP());
+                    return float.Parse(tstring);
                     break;
                 default:
                     return 1;
@@ -125,7 +133,7 @@ namespace LAB01Práctico_JorgeGarcía_1220019
                 case TokenType.Symbol:
                     ttoken = _token;
                     Match(_token.Tag);
-                    return Convert.ToString(ttoken) + Convert.ToString(DP());
+                    return Convert.ToString(ttoken.Value) + Convert.ToString(DP());
                     break;
                 default:
                     return "";
@@ -145,18 +153,19 @@ namespace LAB01Práctico_JorgeGarcía_1220019
             }
         }
 
-        public void Parse(string regexp)
+        public float Parse(string regexp)
         {
             _scanner = new Scanner(regexp + (char)TokenType.EOF);
             _token = _scanner.GetToken();
             switch (_token.Tag)
             {
                 case TokenType.LParen:
-                case TokenType.Empty:
-                case TokenType.Null:
+                case TokenType.Minus:
                 case TokenType.Symbol:
+                    return A();
                     break;
                 default:
+                   return 0;
                     break;
             }
             Match(TokenType.EOF);
