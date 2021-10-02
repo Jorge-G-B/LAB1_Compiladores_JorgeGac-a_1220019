@@ -1,0 +1,42 @@
+Tokens:
+Plus ("+")
+Minus ("-")
+Star ("*")
+Division ("/")
+Symbol (0-9)
+LParen ("(")
+RParen (")")
+
+Gramática:
+S -> A$
+A -> BA'
+A'-> +BA'|-BA'|e
+B -> CB'
+B'-> *CB'|/CB'|e
+C -> -C|D
+D -> numD'|(A)
+D'-> numD'|e
+
+S -> A$
+First(S) =First(A) = First(B) = First(C) = (-,num,()
+
+A -> BA'
+First(A) = First(B) = First(C) = (-,num,()
+
+A'-> +BA'|-BA'|e
+First(A') = (+,-,e)
+
+B -> CB'
+First(B) = First(C) = (-,num,()
+
+B'-> *CB'|/CB'|e
+First(B') = (*,/,e)
+
+C -> -C|D
+First(C) = (-,num,()
+
+D -> numD'|(A)
+First(D) = (num,()
+
+D'-> numD'|e
+First(D') = (num,e)
